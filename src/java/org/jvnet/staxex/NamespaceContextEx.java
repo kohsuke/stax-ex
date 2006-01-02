@@ -7,6 +7,7 @@ import java.util.Iterator;
  * Extended {@link NamespaceContext}.
  *
  * @author Kohsuke Kawaguchi
+ * @author Paul Sandoz
  */
 public interface NamespaceContextEx extends NamespaceContext, Iterable<NamespaceContextEx.Binding> {
 

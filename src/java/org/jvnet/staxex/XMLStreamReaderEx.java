@@ -44,6 +44,7 @@ import javax.xml.stream.XMLStreamException;
  *
  * @see XMLStreamWriterEx
  * @author Kohsuke Kawaguchi
+ * @author Paul Sandoz
  */
 public interface XMLStreamReaderEx extends XMLStreamReader {
     ///**

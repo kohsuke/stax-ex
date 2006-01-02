@@ -43,6 +43,7 @@ import java.io.OutputStream;
  *
  * @see XMLStreamReaderEx
  * @author Kohsuke Kawaguchi
+ * @author Paul Sandoz
  */
 public interface XMLStreamWriterEx extends XMLStreamWriter {
 
