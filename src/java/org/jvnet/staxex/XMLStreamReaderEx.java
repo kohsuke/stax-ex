@@ -140,7 +140,8 @@ public interface XMLStreamReaderEx extends XMLStreamReader {
      */
     CharSequence getPCDATA() throws XMLStreamException;
 
-    // inherit doc
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     NamespaceContextEx getNamespaceContext();
 }
