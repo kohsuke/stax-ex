@@ -103,4 +103,14 @@ public interface XMLStreamWriterEx extends XMLStreamWriter {
      *      always return a non-null {@link OutputStream}.
      */
     OutputStream writeBinary(String contentType) throws XMLStreamException;
+
+    /**
+     * {@inheritDoc}
+     */
+    NamespaceContextEx getNamespaceContext();
+
+    /**
+     * {@inheritDoc}
+     */
+    void setNamespaceContext(NamespaceContextEx context) throws XMLStreamException;
 }
