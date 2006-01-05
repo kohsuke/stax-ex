@@ -145,4 +145,16 @@ public interface XMLStreamReaderEx extends XMLStreamReader {
      * {@inheritDoc}
      */
     NamespaceContextEx getNamespaceContext();
+
+    /**
+     * Works like {@link #getElementText()} but trims the leading
+     * and trailing whitespace.
+     *
+     * <p>
+     * The parser can often do this more efficiently than
+     * {@code getElementText().trim()}.
+     *
+     * @see #getElementText() 
+     */
+    String getElementTextTrim() throws XMLStreamException;
 }
