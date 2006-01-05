@@ -12,7 +12,7 @@ import java.util.Iterator;
 public interface NamespaceContextEx extends NamespaceContext, Iterable<NamespaceContextEx.Binding> {
 
     /**
-     * Iteraets all the in-scope namespace bindings.
+     * Iterates all the in-scope namespace bindings.
      *
      * <p>
      * This method enumerates all the active in-scope namespace bindings.
