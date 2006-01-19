@@ -108,9 +108,4 @@ public interface XMLStreamWriterEx extends XMLStreamWriter {
      * {@inheritDoc}
      */
     NamespaceContextEx getNamespaceContext();
-
-    /**
-     * {@inheritDoc}
-     */
-    void setNamespaceContext(NamespaceContextEx context) throws XMLStreamException;
 }
