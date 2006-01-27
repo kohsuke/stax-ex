@@ -105,6 +105,29 @@ public interface XMLStreamWriterEx extends XMLStreamWriter {
     OutputStream writeBinary(String contentType) throws XMLStreamException;
 
     /**
+     * Writes like {@link #writeCharacters(String)} but hides
+     * actual data format.
+     *
+     * @return
+     *      The {@link CharSequence} that represents the
+     *      character infoset items to be written.
+     *
+     *      <p>
+     *      The {@link CharSequence} is normally a {@link String},
+     *      but can be any other {@link CharSequence} implementation.
+     *      For binary data, however, use of {@link Base64Data} is
+     *      recommended (so that the consumer interested in seeing it
+     *      as binary data may take advantage of mor efficient
+     *      data representation.)
+     *
+     *      <p>
+     *      The object returned from this method belongs to the parser,
+     *      and its content is guaranteed to be the same only until
+     *      the {@link #next()} method is invoked.
+     */
+    void writePCDATA(CharSequence data) throws XMLStreamException;
+
+    /**
      * {@inheritDoc}
      */
     NamespaceContextEx getNamespaceContext();

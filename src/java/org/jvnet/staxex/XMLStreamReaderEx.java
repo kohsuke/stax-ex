@@ -125,7 +125,7 @@ public interface XMLStreamReaderEx extends XMLStreamReader {
      *      but can be any other {@link CharSequence} implementation.
      *      For binary data, however, use of {@link Base64Data} is
      *      recommended (so that the consumer interested in seeing it
-     *      as binary data may take advantage of mor eefficient
+     *      as binary data may take advantage of mor efficient
      *      data representation.)
      *
      *      <p>
