@@ -15,7 +15,7 @@ import java.io.ByteArrayInputStream;
  *
  * @author Kohsuke Kawaguchi
  */
-public class Base64Data implements CharSequence {
+public class Base64Data implements CharSequence, Cloneable {
 
     // either dataHandler or (data,dataLen,mimeType?) must be present
 
@@ -27,6 +27,11 @@ public class Base64Data implements CharSequence {
      */
     private int dataLen;
     /**
+     * True if {@link #data} can be cloned by reference
+     * if Base64Data instance is cloned.
+     */
+    private boolean dataCloneByRef;
+    /**
      * Optional MIME type of {@link #data}.
      *
      * Unused when {@link #dataHandler} is set.
@@ -35,16 +40,53 @@ public class Base64Data implements CharSequence {
     private String mimeType;
 
     /**
+     * Default constructor
+     */
+    public Base64Data() {
+    }
+
+    /**
+     * Clone constructor
+     */
+    public Base64Data(Base64Data that) {
+	get();
+	if (that.dataCloneByRef) {
+	    this.data = that.data;
+	} else {
+	    this.data = new byte[that.dataLen];
+	    System.arraycopy(this.data,0,that.data,0,that.dataLen);
+	}
+
+	this.dataCloneByRef = true;
+	this.dataLen = that.dataLen;
+	this.dataHandler = null;
+	this.mimeType = that.mimeType;
+    }
+
+    /**
+     * Fills in the data object by a portion of the byte[].
+     *
+     * @param len
+     *      data[0] to data[len-1] are treated as the data.
+     * @param cloneByRef
+     *      true if data[] can be cloned by reference
+     */
+    public void set(byte[] data, int len, String mimeType, boolean cloneByRef) {
+        this.data = data;
+        this.dataLen = len;
+        this.dataCloneByRef = cloneByRef;
+        this.dataHandler = null;
+        this.mimeType = mimeType;
+    }
+
+    /**
      * Fills in the data object by a portion of the byte[].
      *
      * @param len
      *      data[0] to data[len-1] are treated as the data.
      */
     public void set(byte[] data, int len, String mimeType) {
-        this.data = data;
-        this.dataLen = len;
-        this.dataHandler = null;
-        this.mimeType = mimeType;
+        set(data,len,mimeType,false);
     }
 
     /**
@@ -54,7 +96,7 @@ public class Base64Data implements CharSequence {
      *      this buffer may be owned directly by the unmarshaleld JAXB object.
      */
     public void set(byte[] data,String mimeType) {
-        set(data,data.length,mimeType);
+        set(data,data.length,mimeType,false);
     }
 
     /**
@@ -119,6 +161,7 @@ public class Base64Data implements CharSequence {
                 is.close();
                 data = baos.getBuffer();
                 dataLen = baos.size();
+                dataCloneByRef = true;
             } catch (IOException e) {
                 // TODO: report the error to the unmarshaller
                 dataLen = 0;    // recover by assuming length-0 data
@@ -220,5 +263,9 @@ public class Base64Data implements CharSequence {
     public void writeTo(char[] buf, int start) {
         get();
         Base64Encoder.print(data, 0, dataLen, buf, start);
+    }
+
+    public Object clone() {
+	return new Base64Data(this);
     }
 }
