@@ -49,7 +49,7 @@ public class Base64Data implements CharSequence, Cloneable {
      * Clone constructor
      */
     public Base64Data(Base64Data that) {
-	get();
+	that.get();
 	if (that.dataCloneByRef) {
 	    this.data = that.data;
 	} else {
