@@ -49,18 +49,18 @@ public class Base64Data implements CharSequence, Cloneable {
      * Clone constructor
      */
     public Base64Data(Base64Data that) {
-	that.get();
-	if (that.dataCloneByRef) {
-	    this.data = that.data;
-	} else {
-	    this.data = new byte[that.dataLen];
-	    System.arraycopy(this.data,0,that.data,0,that.dataLen);
-	}
+        that.get();
+        if (that.dataCloneByRef) {
+            this.data = that.data;
+        } else {
+            this.data = new byte[that.dataLen];
+            System.arraycopy(that.data, 0, this.data, 0, that.dataLen);
+        }
 
-	this.dataCloneByRef = true;
-	this.dataLen = that.dataLen;
-	this.dataHandler = null;
-	this.mimeType = that.mimeType;
+        this.dataCloneByRef = true;
+        this.dataLen = that.dataLen;
+        this.dataHandler = null;
+        this.mimeType = that.mimeType;
     }
 
     /**
@@ -266,6 +266,6 @@ public class Base64Data implements CharSequence, Cloneable {
     }
 
     public Object clone() {
-	return new Base64Data(this);
+        return new Base64Data(this);
     }
 }
