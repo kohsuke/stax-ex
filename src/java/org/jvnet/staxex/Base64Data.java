@@ -265,7 +265,7 @@ public class Base64Data implements CharSequence, Cloneable {
         Base64Encoder.print(data, 0, dataLen, buf, start);
     }
 
-    public Object clone() {
+    public Base64Data clone() {
         return new Base64Data(this);
     }
 }
