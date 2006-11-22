@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
   <pomVersion>3</pomVersion>
-  <currentVersion>1.0-SNAPSHOT</currentVersion>
+  <currentVersion>1.0</currentVersion>
   <groupId>org.jvnet.staxex</groupId>
   <artifactId>stax-ex</artifactId>
   <name>Extended StAX API</name>
