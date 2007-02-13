@@ -1,9 +1,11 @@
 package org.jvnet.staxex;
 
 import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.ByteArrayInputStream;
+import java.io.OutputStream;
 
 /**
  * Binary data represented as base64-encoded string
@@ -112,9 +114,25 @@ public class Base64Data implements CharSequence, Cloneable {
      * Gets the raw data.
      */
     public DataHandler getDataHandler() {
-        if(dataHandler==null)
-            // TODO
-            throw new UnsupportedOperationException();
+        if(dataHandler==null){
+            dataHandler = new DataHandler(new DataSource() {
+                public String getContentType() {
+                    return getMimeType();
+                }
+
+                public InputStream getInputStream() {
+                    return new ByteArrayInputStream(data,0,dataLen);
+                }
+
+                public String getName() {
+                    return null;
+                }
+
+                public OutputStream getOutputStream() {
+                    throw new UnsupportedOperationException();
+                }
+            });
+        }
         return dataHandler;
     }
 
