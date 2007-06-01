@@ -23,15 +23,22 @@
       <url>http://download.java.net/maven/2/</url>
     </pluginRepository>
     <pluginRepository>
-      <id>java.net1</id>
-      <url>http://download.java.net/maven/1/</url>
-      <layout>legacy</layout>
-    </pluginRepository>
-    <pluginRepository>
       <id>central</id>
       <url>http://www.ibiblio.org/maven2</url>
     </pluginRepository>
   </pluginRepositories>
+  
+  <repositories>
+    <repository>
+      <id>java.net2</id>
+      <url>http://download.java.net/maven/2/</url>
+    </repository>
+    <repository>
+      <id>java.net1</id>
+      <url>http://download.java.net/maven/1/</url>
+      <layout>legacy</layout>
+    </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
