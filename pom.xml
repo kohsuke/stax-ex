@@ -75,7 +75,7 @@
         <artifactId>package-rename-task</artifactId>
         <configuration>
           <patterns>
-            <org.jvnet.staxex>org.jvnet.internal.staxex</org.jvnet.staxex>
+            <org.jvnet.staxex>com.sun.xml.internal.org.jvnet.staxex</org.jvnet.staxex>
           </patterns>
         </configuration>
       </plugin>
