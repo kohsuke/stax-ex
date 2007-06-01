@@ -1,0 +1,80 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.jvnet.staxex</groupId>
+  <artifactId>stax-ex</artifactId>
+  
+  <version>1.1-SNAPSHOT</version>
+  <name>Extended StAX API</name>
+  <inceptionYear>2006</inceptionYear>
+  <description>Extensions to JSR-173 StAX API.</description>
+  <url>https://stax-ex.dev.java.net/</url>
+
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>local-repository</id>
+      <url>file:${path-to-m2-repo.java.net}</url>
+    </repository>
+  </distributionManagement>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>java.net2</id>
+      <url>http://download.java.net/maven/2/</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>central</id>
+      <url>http://www.ibiblio.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>javax.xml.stream</groupId>
+      <artifactId>stax-api</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src/java</sourceDirectory>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.sun.wts.tools.ant</groupId>
+        <artifactId>package-rename-task</artifactId>
+        <configuration>
+          <patterns>
+            <org.jvnet.staxex>org.jvnet.internal.staxex</org.jvnet.staxex>
+          </patterns>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <licenses>
+    <license>
+      <name>Common Development And Distribution License (CDDL) Version 1.0</name>
+      <url>http://www.sun.com/cddl/cddl.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+</project>
