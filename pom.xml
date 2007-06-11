@@ -3,7 +3,7 @@
   <groupId>org.jvnet.staxex</groupId>
   <artifactId>stax-ex</artifactId>
   
-  <version>1.1</version>
+  <version>1.2-SNAPSHOT</version>
   <name>Extended StAX API</name>
   <inceptionYear>2006</inceptionYear>
   <description>Extensions to JSR-173 StAX API.</description>
@@ -11,9 +11,8 @@
 
   <scm>
     <connection>scm:cvs:pserver:guest@cvs.dev.java.net:/cvs:stax-ex/stax-ex</connection>
-    <developerConnection>scm:cvs:pserver:${user.name}@cvs.dev.java.net:/cvs:stax-ex/stax-ex</developerConnection>
+    <developerConnection>scm:cvs:pserver:kohsuke@cvs.dev.java.net:/cvs:stax-ex/stax-ex</developerConnection>
     <url>https://stax-ex.dev.java.net/source/browse/stax-ex/stax-ex</url>
-    <tag>stax-ex-1_1</tag>
   </scm>
 
   <distributionManagement>
