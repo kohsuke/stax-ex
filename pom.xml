@@ -9,6 +9,12 @@
   <description>Extensions to JSR-173 StAX API.</description>
   <url>https://stax-ex.dev.java.net/</url>
 
+  <scm>
+    <connection>scm:cvs:pserver:guest@cvs.dev.java.net:/cvs:stax-ex/stax-ex</connection>
+    <developerConnection>scm:cvs:pserver:${user.name}@cvs.dev.java.net:/cvs:stax-ex/stax-ex</developerConnection>
+    <url>https://stax-ex.dev.java.net/source/browse/stax-ex/stax-ex</url>
+  </scm>
+
   <distributionManagement>
     <repository>
       <uniqueVersion>false</uniqueVersion>
