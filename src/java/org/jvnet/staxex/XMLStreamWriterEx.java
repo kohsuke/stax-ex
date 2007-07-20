@@ -1,10 +1,8 @@
 package org.jvnet.staxex;
 
-import org.jvnet.staxex.XMLStreamReaderEx;
-
-import javax.xml.stream.XMLStreamWriter;
-import javax.xml.stream.XMLStreamException;
 import javax.activation.DataHandler;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
 import java.io.OutputStream;
 
 /**
@@ -109,7 +107,7 @@ public interface XMLStreamWriterEx extends XMLStreamWriter {
      * Writes like {@link #writeCharacters(String)} but hides
      * actual data format.
      *
-     * @return
+     * @param data
      *      The {@link CharSequence} that represents the
      *      character infoset items to be written.
      *
@@ -121,10 +119,6 @@ public interface XMLStreamWriterEx extends XMLStreamWriter {
      *      as binary data may take advantage of mor efficient
      *      data representation.)
      *
-     *      <p>
-     *      The object returned from this method belongs to the parser,
-     *      and its content is guaranteed to be the same only until
-     *      the {@link #next()} method is invoked.
      */
     void writePCDATA(CharSequence data) throws XMLStreamException;
 
