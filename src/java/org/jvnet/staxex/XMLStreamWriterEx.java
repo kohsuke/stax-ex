@@ -61,6 +61,7 @@ public interface XMLStreamWriterEx extends XMLStreamWriter {
      *
      * <p>
      * (data,start,len) triplet identifies the binary data to be written.
+     * After the method invocation, the callee owns the buffer. 
      *
      * @param contentType
      *      this mandatory parameter identifies the MIME type of the binary data.
@@ -79,7 +80,7 @@ public interface XMLStreamWriterEx extends XMLStreamWriter {
      * {@link DataHandler#getInputStream()}.
      *
      * @param data
-     *      always non-null.
+     *      always non-null. After this method call, the callee owns the data handler.
      */
     void writeBinary(DataHandler data) throws XMLStreamException;
 
