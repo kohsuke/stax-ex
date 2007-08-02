@@ -56,6 +56,7 @@ import java.io.OutputStream;
 public class Base64Data implements CharSequence, Cloneable {
 
     // either dataHandler or (data,dataLen,mimeType?) must be present
+    // (note that having both is allowed) 
 
     private DataHandler dataHandler;
 
@@ -224,7 +225,16 @@ public class Base64Data implements CharSequence, Cloneable {
         return data;
     }
 
+    /**
+     * Gets the length of the binary data counted in bytes.
+     *
+     * Note that if this object encapsulates {@link DataHandler},
+     * this method would have to read the whole thing into {@code byte[]}
+     * just to count the length, because {@link DataHandler}
+     * doesn't easily expose the length.
+     */
     public int getDataLen() {
+        get();
         return dataLen;
     }
 
