@@ -2,9 +2,10 @@ package org.jvnet.staxex;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
-import java.io.InputStream;
-import java.io.IOException;
 import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 /**
@@ -69,5 +70,38 @@ public abstract class StreamingDataHandler extends DataHandler {
      */
     public abstract InputStream readOnce() throws IOException;
 
+    /**
+     * Obtains the BLOB into a specified file.
+     *
+     * <p>
+     * Semantically, this method is roughly equivalent to the following
+     * code, except that the actual implementation is likely to be a lot faster.
+     *
+     * <pre>
+     * InputStream i = getInputStream();
+     * OutputStream o = new FileOutputStream(dst);
+     * int ch;
+     * while((ch=i.read())!=-1)  o.write(ch);
+     * i.close();
+     * o.close();
+     * </pre>
+     *
+     * <p>
+     * The main motivation behind this method is that often
+     * {@link DataHandler} that reads data from a streaming source
+     * will use a temporary file as a data store to hold data
+     * (think of commons-fileupload.) In such case this method
+     * can be as fast as calling {@link File#renameTo(File)}.
+     *
+     * <p>
+     * After this method is invoked, {@link #readOnce()} and
+     * {@link #getInputStream()} will simply open the destination
+     * file you've specified as an argument. So if you further
+     * move the file or delete this file, those methods will
+     * behave in undefined fashion. For a simliar reason,
+     * calling this method multiple times will cause
+     * undefined behavior.  
+     */
+    public abstract void moveTo(File dst) throws IOException;
 }
 
