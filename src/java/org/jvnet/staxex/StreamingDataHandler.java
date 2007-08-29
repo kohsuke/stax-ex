@@ -4,6 +4,7 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import java.io.InputStream;
 import java.io.IOException;
+import java.io.BufferedInputStream;
 import java.net.URL;
 
 /**
@@ -37,12 +38,34 @@ public abstract class StreamingDataHandler extends DataHandler {
     }
 
     /**
-     * Gives data only one time. The data can be accessed in a
-     * streaming fashion and the implementations may implement
-     * this without buffering.
+     * Works like {@link #getInputStream()} except that this method
+     * can be invoked only once.
      *
-     * @return content of this object
-     * @throws java.io.IOException if any i/o error
+     * <p>
+     * This is used as a signal from the caller that there will
+     * be no further {@link #getInputStream()} invocation nor
+     * {@link #readOnce()} invocation on this object (which would
+     * result in {@link IOException}.)
+     *
+     * <p>
+     * When {@link DataHandler} is backed by a streaming BLOB
+     * (such as an attachment in a web service read from the network),
+     * this allows the callee to avoid unnecessary buffering.
+     *
+     * <p>
+     * Note that it is legal to call {@link #getInputStream()}
+     * multiple times and then call {@link #readOnce()} afterward.
+     * Streams created such a way can be read in any order &mdash;
+     * there's no requirement that streams created earlier must be read
+     * first.
+     *
+     * @return
+     *      always non-null. Represents the content of this BLOB.
+     *      The returned stream is generally not buffered, so for
+     *      better performance read in a big batch or wrap this into
+     *      {@link BufferedInputStream}.
+     * @throws IOException
+     *      if any i/o error
      */
     public abstract InputStream readOnce() throws IOException;
 
