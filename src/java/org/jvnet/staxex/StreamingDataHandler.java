@@ -7,8 +7,18 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * A {@link DataHandler} that provides access to the streaming data.
- * The data can be read only once.
+ * {@link DataHandler} extended to offer better buffer management
+ * in a streaming environment.
+ *
+ * <p>
+ * {@link DataHandler} is used commonly as a data format across
+ * multiple systems (such as JAXB/WS.) Unfortunately, {@link DataHandler}
+ * has the semantics of "read as many times as you want", so this makes
+ * it difficult for involving parties to handle a BLOB in a streaming fashion.
+ *
+ * <p>
+ * {@link StreamingDataHandler} solves this problem by offering methods
+ * that enable faster bulk "consume once" read operation.
  *
  * @author Jitendra Kotamraju
  */
