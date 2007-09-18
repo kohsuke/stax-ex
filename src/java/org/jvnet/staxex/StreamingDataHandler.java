@@ -94,6 +94,10 @@ public abstract class StreamingDataHandler extends DataHandler {
      * can be as fast as calling {@link File#renameTo(File)}.
      *
      * <p>
+     * This method shouldn't be called when there are any
+     * open streams.
+     *
+     * <p>
      * After this method is invoked, {@link #readOnce()} and
      * {@link #getInputStream()} will simply open the destination
      * file you've specified as an argument. So if you further
@@ -103,5 +107,14 @@ public abstract class StreamingDataHandler extends DataHandler {
      * undefined behavior.  
      */
     public abstract void moveTo(File dst) throws IOException;
+
+    /**
+     * Releases any resources associated with this DataHandler.
+     * (such as an attachment in a web service read from a temp
+     * file will be deleted.) After calling this method, it is
+     * illegal to call any other methods.
+     */
+    public abstract void close() throws IOException;
+
 }
 
