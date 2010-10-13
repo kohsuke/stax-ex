@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  * 
- * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
+ * Copyright 1997-2010 Sun Microsystems, Inc. All rights reserved.
  * 
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -38,9 +38,11 @@ package org.jvnet.staxex;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
-import java.io.InputStream;
-import java.io.IOException;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
@@ -164,25 +166,101 @@ public class Base64Data implements CharSequence, Cloneable {
      */
     public DataHandler getDataHandler() {
         if(dataHandler==null){
-            dataHandler = new DataHandler(new DataSource() {
-                public String getContentType() {
-                    return getMimeType();
-                }
-
-                public InputStream getInputStream() {
-                    return new ByteArrayInputStream(data,0,dataLen);
-                }
-
-                public String getName() {
-                    return null;
-                }
-
-                public OutputStream getOutputStream() {
-                    throw new UnsupportedOperationException();
-                }
-            });
+            dataHandler = new Base64StreamingDataHandler(new Base64DataSource());
+        } else if (!(dataHandler instanceof StreamingDataHandler)) {
+            dataHandler = new FilterDataHandler(dataHandler);
         }
         return dataHandler;
+    }
+
+    private final class Base64DataSource implements DataSource {
+        public String getContentType() {
+            return getMimeType();
+        }
+
+        public InputStream getInputStream() {
+            return new ByteArrayInputStream(data,0,dataLen);
+        }
+
+        public String getName() {
+            return null;
+        }
+
+        public OutputStream getOutputStream() {
+            throw new UnsupportedOperationException();
+        }
+
+    }
+
+    private final class Base64StreamingDataHandler extends StreamingDataHandler {
+
+        Base64StreamingDataHandler(DataSource source) {
+            super(source);
+        }
+
+        public InputStream readOnce() throws IOException {
+            return getDataSource().getInputStream();
+        }
+
+        public void moveTo(File dst) throws IOException {
+            FileOutputStream fout = new FileOutputStream(dst);
+            try {
+                fout.write(data, 0, dataLen);
+            } finally {
+                fout.close();
+            }
+        }
+
+        public void close() throws IOException {
+            // nothing to do
+        }
+    }
+
+    private static final class FilterDataHandler extends StreamingDataHandler {
+
+        FilterDataHandler(DataHandler dh) {
+            super(dh.getDataSource());
+        }
+
+        public InputStream readOnce() throws IOException {
+            return getDataSource().getInputStream();
+        }
+
+        public void moveTo(File dst) throws IOException {
+            byte[] buf = new byte[8192];
+            InputStream in = null;
+            OutputStream out = null;
+            try {
+                in = getDataSource().getInputStream();
+                out = new FileOutputStream(dst);
+                while (true) {
+                    int amountRead = in.read(buf);
+                    if (amountRead == -1) {
+                        break;
+                    }
+                    out.write(buf, 0, amountRead);
+                }
+            } finally {
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch(IOException ioe) {
+                        // nothing to do
+                    }
+                }
+                if (out != null) {
+                    try {
+                        out.close();
+                    } catch(IOException ioe) {
+                        // nothing to do
+                    }
+                }
+            }
+        }
+
+        public void close() throws IOException {
+            // nothing to do
+        }
     }
 
     /**
