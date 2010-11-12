@@ -43,6 +43,7 @@ package org.jvnet.staxex;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import java.io.BufferedInputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,7 +65,7 @@ import java.net.URL;
  *
  * @author Jitendra Kotamraju
  */
-public abstract class StreamingDataHandler extends DataHandler {
+public abstract class StreamingDataHandler extends DataHandler implements Closeable {
 
     public StreamingDataHandler(Object o, String s) {
         super(o, s);
