@@ -43,12 +43,12 @@
   <name>Extended StAX API</name>
   <inceptionYear>2006</inceptionYear>
   <description>Extensions to JSR-173 StAX API.</description>
-  <url>https://stax-ex.dev.java.net/</url>
+  <url>https://stax-ex.java.net/</url>
 
   <scm>
-    <connection>scm:cvs:pserver:guest@cvs.dev.java.net:/cvs:stax-ex/stax-ex</connection>
-    <developerConnection>scm:cvs:pserver:kohsuke@cvs.dev.java.net:/cvs:stax-ex/stax-ex</developerConnection>
-    <url>https://stax-ex.dev.java.net/source/browse/stax-ex/stax-ex</url>
+    <connection>scm:https://svn.java.net/svn/stax-ex~svn</connection>
+    <developerConnection>scm:https://svn.java.net/svn/stax-ex~svn</developerConnection>
+    <url>http://java.net/projects/stax-ex/sources/svn/show</url>
   </scm>
 
   <distributionManagement>
@@ -135,9 +135,11 @@
   
   <licenses>
     <license>
-      <name>Common Development And Distribution License (CDDL) Version 1.0</name>
-      <url>http://www.sun.com/cddl/cddl.html</url>
-      <distribution>repo</distribution>
+        <name>
+            Dual license consisting of the CDDL v1.1 and GPL v2
+        </name>
+        <url>https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html</url>
+        <distribution>repo</distribution>
     </license>
   </licenses>
 </project>
