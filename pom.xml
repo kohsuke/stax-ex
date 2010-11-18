@@ -52,9 +52,9 @@
   <url>http://stax-ex.java.net/</url>
 
   <scm>
-    <connection>scm:svn:https://svn.java.net/svn/stax-ex~svn/tags/stax-ex-1.3</connection>
-    <developerConnection>scm:svn:https://svn.java.net/svn/stax-ex~svn/tags/stax-ex-1.3</developerConnection>
-    <url>http://java.net/projects/stax-ex/sources/svn/show/tags/stax-ex-1.3</url>
+    <connection>scm:svn:https://svn.java.net/svn/stax-ex~svn/tags/stax-ex-1.3-11172010</connection>
+    <developerConnection>scm:svn:https://svn.java.net/svn/stax-ex~svn/tags/stax-ex-1.3-11172010</developerConnection>
+    <url>http://java.net/projects/stax-ex/sources/svn/show/tags/stax-ex-1.3-11172010</url>
   </scm>
 
   <distributionManagement>
