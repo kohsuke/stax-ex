@@ -51,19 +51,11 @@
   <description>Extensions to JSR-173 StAX API.</description>
   <url>http://stax-ex.java.net/</url>
 
-<!--
   <scm>
-    <connection>scm:https://svn.java.net/svn/stax-ex~svn</connection>
-    <developerConnection>scm:https://svn.java.net/svn/stax-ex~svn</developerConnection>
+    <connection>scm:svn:https://svn.java.net/svn/stax-ex~svn</connection>
+    <developerConnection>scm:svn:https://svn.java.net/svn/stax-ex~svn</developerConnection>
     <url>http://java.net/projects/stax-ex/sources/svn/show</url>
   </scm>
--->
-  <scm>
-    <connection>scm:cvs:pserver:guest@cvs.dev.java.net:/cvs:stax-ex/stax-ex</connection>
-    <developerConnection>scm:cvs:pserver:jitu@cvs.dev.java.net:/cvs:stax-ex/stax-ex</developerConnection>
-    <url>https://stax-ex.dev.java.net/source/browse/stax-ex/stax-ex</url>
-  </scm>
-
 
   <distributionManagement>
     <repository>
