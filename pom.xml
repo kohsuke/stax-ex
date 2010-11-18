@@ -62,7 +62,7 @@
       <uniqueVersion>false</uniqueVersion>
       <id>local-repository</id>
       <!--url>file:${path-to-m2-repo.java.net}</url-->
-      <url>java-net:/maven2-repository/trunk/www/repository</url>
+      <url>java-net:/maven2-repository/trunk/repository</url>
     </repository>
   </distributionManagement>
 
