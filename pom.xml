@@ -2,7 +2,7 @@
 
     DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-    Copyright (c) 1997-2010 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997-2011 Oracle and/or its affiliates. All rights reserved.
 
     The contents of this file are subject to the terms of either the GNU
     General Public License Version 2 only ("GPL") or the Common Development
@@ -40,113 +40,101 @@
 
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.jvnet.staxex</groupId>
-  <artifactId>stax-ex</artifactId>
-  
-  <version>1.5-SNAPSHOT</version>
-  <name>Extended StAX API</name>
-  <inceptionYear>2006</inceptionYear>
-  <description>Extensions to JSR-173 StAX API.</description>
-  <url>http://stax-ex.java.net/</url>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>net.java</groupId>
+        <artifactId>jvnet-parent</artifactId>
+        <version>1</version>
+    </parent>
 
-  <scm>
-    <connection>scm:svn:https://svn.java.net/svn/stax-ex~svn/tags/stax-ex-1.3</connection>
-    <developerConnection>scm:svn:https://svn.java.net/svn/stax-ex~svn/tags/stax-ex-1.3</developerConnection>
-    <url>http://java.net/projects/stax-ex/sources/svn/show/tags/stax-ex-1.3</url>
-  </scm>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.jvnet.staxex</groupId>
+    <artifactId>stax-ex</artifactId>
+    <version>1.5-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-  <licenses>
-    <license>
-        <name>
-            Dual license consisting of the CDDL v1.1 and GPL v2
-        </name>
-        <url>https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html</url>
-        <distribution>repo</distribution>
-    </license>
-  </licenses>
+    <name>Extended StAX API</name>
+    <inceptionYear>2006</inceptionYear>
+    <description>Extensions to JSR-173 StAX API.</description>
+    <url>http://stax-ex.java.net/</url>
 
-  <distributionManagement>
-    <repository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>local-repository</id>
-      <!--url>file:${path-to-m2-repo.java.net}</url-->
-      <url>java-net:/maven2-repository/trunk/repository</url>
-    </repository>
-  </distributionManagement>
+    <scm>
+        <connection>scm:svn:https://svn.java.net/svn/stax-ex~svn/trunk/stax-ex</connection>
+        <developerConnection>scm:svn:https://svn.java.net/svn/stax-ex~svn/trunk/stax-ex</developerConnection>
+        <url>http://java.net/projects/stax-ex/sources/svn/show/trunk/stax-ex</url>
+    </scm>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>java.net2</id>
-      <url>http://download.java.net/maven/2/</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>central</id>
-      <url>http://www.ibiblio.org/maven2</url>
-    </pluginRepository>
-  </pluginRepositories>
-  
-  <repositories>
-    <repository>
-      <id>java.net2</id>
-      <url>http://download.java.net/maven/2/</url>
-    </repository>
-    <repository>
-      <id>java.net1</id>
-      <url>http://download.java.net/maven/1/</url>
-      <layout>legacy</layout>
-    </repository>
-  </repositories>
+    <licenses>
+        <license>
+            <name>
+                Dual license consisting of the CDDL v1.1 and GPL v2
+            </name>
+            <url>https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-  <dependencies>
-    <dependency>
-      <groupId>javax.xml.stream</groupId>
-      <artifactId>stax-api</artifactId>
-      <version>1.0-2</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.activation</groupId>
-      <artifactId>activation</artifactId>
-      <version>1.1</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8</version>
-    </dependency>
-  </dependencies>
+    <developers>
+        <developer>
+            <name>Jitendra Kotamraju</name>
+            <email>jitendra.kotamraju@oracle.com</email>
+            <organization>Oracle Corporation</organization>
+        </developer>
+    </developers>
 
-  <build>
-    <sourceDirectory>src/java</sourceDirectory>
-    
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>com.sun.wts.tools.ant</groupId>
-        <artifactId>package-rename-task</artifactId>
-        <configuration>
-          <patterns>
-            <org.jvnet.staxex>com.sun.xml.internal.org.jvnet.staxex</org.jvnet.staxex>
-          </patterns>
-        </configuration>
-      </plugin>
-    </plugins>
-    
-    <extensions>
-      <extension>
-        <groupId>org.jvnet.wagon-svn</groupId>
-        <artifactId>wagon-svn</artifactId>
-        <version>1.11</version>
-      </extension>
-    </extensions>
-  </build>
-  
+    <dependencies>
+        <dependency>
+            <groupId>javax.xml.stream</groupId>
+            <artifactId>stax-api</artifactId>
+            <version>1.0-2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <arguments>${release.arguments}</arguments>
+                </configuration>
+            </plugin>
+
+            <!--
+            No longer needed as package renaming for JDK distribution is done in integration workspace.
+            <plugin>
+                <groupId>com.sun.wts.tools.ant</groupId>
+                <artifactId>package-rename-task</artifactId>
+                <configuration>
+                    <patterns>
+                        <org.jvnet.staxex>com.sun.xml.internal.org.jvnet.staxex</org.jvnet.staxex>
+                    </patterns>
+                </configuration>
+            </plugin>
+            -->
+        </plugins>
+    </build>
 </project>
