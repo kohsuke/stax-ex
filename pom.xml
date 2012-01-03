@@ -122,19 +122,6 @@
                     <arguments>${release.arguments}</arguments>
                 </configuration>
             </plugin>
-
-            <!--
-            No longer needed as package renaming for JDK distribution is done in integration workspace.
-            <plugin>
-                <groupId>com.sun.wts.tools.ant</groupId>
-                <artifactId>package-rename-task</artifactId>
-                <configuration>
-                    <patterns>
-                        <org.jvnet.staxex>com.sun.xml.internal.org.jvnet.staxex</org.jvnet.staxex>
-                    </patterns>
-                </configuration>
-            </plugin>
-            -->
         </plugins>
     </build>
 </project>
