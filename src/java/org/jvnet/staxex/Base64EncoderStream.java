@@ -40,12 +40,14 @@
 
 package org.jvnet.staxex;
 
-import com.sun.xml.stream.writers.XMLStreamWriterImpl;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+
+// for testing method
+//import com.sun.xml.stream.writers.XMLStreamWriterImpl;
 
 /**
  * This class implements a BASE64 Encoder. It is implemented as
@@ -196,20 +198,20 @@ public class Base64EncoderStream extends FilterOutputStream {
         }
     }
 
-    public static void main(String argv[]) throws Exception {
-	FileInputStream infile = new FileInputStream(new File("/home/snajper/Desktop/a.txt"));
-        StringWriter sw = new StringWriter();
-        XMLStreamWriterImpl wi = new XMLStreamWriterImpl(sw, null);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	Base64EncoderStream encoder = new Base64EncoderStream(wi, baos);
-	int c;
-
-	while ((c = infile.read()) != -1)
-	    encoder.write(c);
-	encoder.close();
-        
-        System.out.println("SW: " + sw.toString());
-        System.out.println("BAOS: " + baos.toString());
-
-    }
+//    public static void main(String argv[]) throws Exception {
+//	FileInputStream infile = new FileInputStream(new File(argv[0]));
+//        StringWriter sw = new StringWriter();
+//        XMLStreamWriterImpl wi = new XMLStreamWriterImpl(sw, null);
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//	Base64EncoderStream encoder = new Base64EncoderStream(wi, baos);
+//	int c;
+//
+//	while ((c = infile.read()) != -1)
+//	    encoder.write(c);
+//	encoder.close();
+//        
+//        System.out.println("SW: " + sw.toString());
+//        System.out.println("BAOS: " + baos.toString());
+//
+//    }
 }
