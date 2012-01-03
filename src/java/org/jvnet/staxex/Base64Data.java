@@ -43,11 +43,20 @@ package org.jvnet.staxex;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+// for testing method
+//import com.sun.xml.stream.writers.XMLStreamWriterImpl;
+//import java.io.FileNotFoundException;
+//import java.io.StringWriter;
+//import javax.activation.FileDataSource;
 
 /**
  * Binary data represented as base64-encoded string
@@ -57,7 +66,7 @@ import java.io.OutputStream;
  * Used in conjunction with {@link XMLStreamReaderEx}
  * and {@link XMLStreamWriterEx}.
  *
- * @author Kohsuke Kawaguchi
+ * @author Kohsuke Kawaguchi, Martin Grebac
  */
 public class Base64Data implements CharSequence, Cloneable {
 
@@ -424,6 +433,7 @@ public class Base64Data implements CharSequence, Cloneable {
     /**
      * Returns the base64 encoded string of this data.
      */
+    @Override
     public String toString() {
         get();  // fill in the buffer
         return Base64Encoder.print(data, 0, dataLen);
@@ -434,7 +444,46 @@ public class Base64Data implements CharSequence, Cloneable {
         Base64Encoder.print(data, 0, dataLen, buf, start);
     }
 
+    public void writeTo(XMLStreamWriter output) throws IOException, XMLStreamException {
+        if (data==null) {
+            try {
+                InputStream is = dataHandler.getDataSource().getInputStream();
+                ByteArrayOutputStream outStream = new ByteArrayOutputStream(); // dev-null stream
+                Base64EncoderStream encWriter = new Base64EncoderStream(output, outStream);
+                int b = -1;
+                while ((b = is.read()) != -1) {
+                    encWriter.write(b);
+                }
+                outStream.close();
+                encWriter.close();
+            } catch (IOException e) {
+                dataLen = 0;    // recover by assuming length-0 data
+                throw e;
+            }
+        } else {
+            // the data is already in memory and not streamed
+            String s = Base64Encoder.print(data, 0, dataLen);
+            output.writeCharacters(s);
+        }
+    }
+    
+    @Override
     public Base64Data clone() {
         return new Base64Data(this);
     }
+    
+//    public static void main(String[] args) throws FileNotFoundException, IOException, XMLStreamException {
+//        Base64Data data = new Base64Data();
+//
+//        data.set(new DataHandler(new FileDataSource(new File("/home/snajper/Desktop/a.txt"))));
+//        
+//        StringWriter sw = new StringWriter();
+//        XMLStreamWriterImpl wi = new XMLStreamWriterImpl(sw, null);
+//        
+//        data.writeTo(wi);
+//        wi.flush();sw.flush();
+//        System.out.println("SW: " + sw.toString());
+//
+//    }
+    
 }
