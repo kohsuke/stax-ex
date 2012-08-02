@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 1997-2010 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997-2012 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -51,11 +51,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // for testing method
 //import com.sun.xml.stream.writers.XMLStreamWriterImpl;
 //import java.io.FileNotFoundException;
-//import java.io.StringWriter;
+//import java.io.FileWriter;
 //import javax.activation.FileDataSource;
 
 /**
@@ -74,8 +76,8 @@ public class Base64Data implements CharSequence, Cloneable {
     // (note that having both is allowed) 
 
     private DataHandler dataHandler;
-
     private byte[] data;
+    
     /**
      * Length of the valid data in {@link #data}.
      */
@@ -99,6 +101,8 @@ public class Base64Data implements CharSequence, Cloneable {
     public Base64Data() {
     }
 
+    private static final Logger logger = Logger.getLogger(Base64Data.class.getName());
+    
     /**
      * Clone constructor
      * @param that needs to be cloned
@@ -444,15 +448,30 @@ public class Base64Data implements CharSequence, Cloneable {
         Base64Encoder.print(data, 0, dataLen, buf, start);
     }
 
+    private static final int CHUNK_SIZE;
+    static {
+        int bufSize = 1024;
+        try {
+            String bufSizeStr = getProperty("org.jvnet.staxex.Base64DataStreamWriteBufferSize");
+            if (bufSizeStr != null) {
+                bufSize = Integer.parseInt(bufSizeStr);
+            }
+        } catch (Exception e) {
+            logger.log(Level.INFO, "Error reading org.jvnet.staxex.Base64DataStreamWriteBufferSize property", e);
+        }
+        CHUNK_SIZE = bufSize;
+    }
+            
     public void writeTo(XMLStreamWriter output) throws IOException, XMLStreamException {
         if (data==null) {
             try {
                 InputStream is = dataHandler.getDataSource().getInputStream();
                 ByteArrayOutputStream outStream = new ByteArrayOutputStream(); // dev-null stream
                 Base64EncoderStream encWriter = new Base64EncoderStream(output, outStream);
-                int b = -1;
-                while ((b = is.read()) != -1) {
-                    encWriter.write(b);
+                int b;
+                byte[] buffer = new byte[CHUNK_SIZE];
+                while ((b = is.read(buffer)) != -1) {
+                    encWriter.write(buffer, 0, b);
                 }
                 outStream.close();
                 encWriter.close();
@@ -471,18 +490,34 @@ public class Base64Data implements CharSequence, Cloneable {
     public Base64Data clone() {
         return new Base64Data(this);
     }
+
+    static String getProperty(final String propName) {
+        if (System.getSecurityManager() == null) {
+            return System.getProperty(propName);
+        } else {
+            return (String) java.security.AccessController.doPrivileged(
+                    new java.security.PrivilegedAction() {
+                        public java.lang.Object run() {
+                            return System.getProperty(propName);
+                        }
+                    });
+        }
+    }
     
 //    public static void main(String[] args) throws FileNotFoundException, IOException, XMLStreamException {
 //        Base64Data data = new Base64Data();
 //
-//        data.set(new DataHandler(new FileDataSource(new File("/home/snajper/Desktop/a.txt"))));
+//        File f = new File("/Users/snajper/work/builds/weblogic/wls1211_dev.zip");
+//        FileDataSource fds = new FileDataSource(f);
+//        DataHandler dh = new DataHandler(fds);
+//        data.set(dh);
 //        
-//        StringWriter sw = new StringWriter();
-//        XMLStreamWriterImpl wi = new XMLStreamWriterImpl(sw, null);
+//        FileWriter fw = new FileWriter(new File("/Users/snajper/Desktop/b.txt"));
+//        XMLStreamWriterImpl wi = new XMLStreamWriterImpl(fw, null);
 //        
 //        data.writeTo(wi);
-//        wi.flush();sw.flush();
-//        System.out.println("SW: " + sw.toString());
+//        wi.flush();fw.flush();
+//        //System.out.println("SW: " + sw.toString());
 //
 //    }
     
