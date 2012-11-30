@@ -181,7 +181,7 @@
     </build>
 	
     <properties>
-        <findbugs.exclude>${project.basedir}/exclude.xml</findbugs.exclude>
+        <findbugs.exclude/>
         <findbugs.skip>false</findbugs.skip>
         <findbugs.threshold>Low</findbugs.threshold>
     </properties>
