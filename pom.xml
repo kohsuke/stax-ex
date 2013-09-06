@@ -50,7 +50,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jvnet.staxex</groupId>
     <artifactId>stax-ex</artifactId>
-    <version>1.7.2</version>
+    <version>1.7.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Extended StAX API</name>
@@ -59,9 +59,9 @@
     <url>http://stax-ex.java.net/</url>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/stax-ex~svn/tags/stax-ex-1.7.2</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/stax-ex~svn/tags/stax-ex-1.7.2</developerConnection>
-        <url>http://java.net/projects/stax-ex/sources/svn/show/tags/stax-ex-1.7.2</url>
+        <connection>scm:svn:https://svn.java.net/svn/stax-ex~svn/trunk/stax-ex</connection>
+        <developerConnection>scm:svn:https://svn.java.net/svn/stax-ex~svn/trunk/stax-ex</developerConnection>
+        <url>http://java.net/projects/stax-ex/sources/svn/show/trunk/stax-ex</url>
     </scm>
 
     <licenses>
