@@ -793,13 +793,12 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
                     return (_state = mapNodeTypeToState(_current.getNodeType()));
                 }
             case END_ELEMENT:
-                depth--;
-                // fall through next
             case CHARACTERS:
             case COMMENT:
             case CDATA:
             case ENTITY_REFERENCE:
             case PROCESSING_INSTRUCTION:
+                if (_state == END_ELEMENT) depth--;
                 // If at the end of this fragment, then terminate traversal
                 if (_current == _start) {
                     return (_state = END_DOCUMENT);
