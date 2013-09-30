@@ -130,10 +130,10 @@ public class XMLStreamReaderToXMLStreamWriter {
             // The spec only really describes 11 of them.
             switch (event) {
                 case XMLStreamConstants.START_ELEMENT :
-                    if (!breakPoint.proceedBeforeStartElement()) return;
+                    if (breakPoint != null && !breakPoint.proceedBeforeStartElement()) return;
                     depth++;
                     handleStartElement();
-                    if (!breakPoint.proceedAfterStartElement()) return;
+                    if (breakPoint != null && !breakPoint.proceedAfterStartElement()) return;
                     break;
                 case XMLStreamConstants.END_ELEMENT :
                     handleEndElement();
