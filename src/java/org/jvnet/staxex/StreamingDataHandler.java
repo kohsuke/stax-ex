@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2010-2012 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2010-2013 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -66,7 +66,9 @@ import java.net.URL;
  * @author Jitendra Kotamraju
  */
 public abstract class StreamingDataHandler extends DataHandler implements Closeable {
-
+    
+    private String hrefCid;
+    
     public StreamingDataHandler(Object o, String s) {
         super(o, s);
     }
@@ -157,5 +159,12 @@ public abstract class StreamingDataHandler extends DataHandler implements Closea
      */
     public abstract void close() throws IOException;
 
+    public String getHrefCid() {
+        return hrefCid;
+    }
+
+    public void setHrefCid(final String cid) {
+        this.hrefCid = cid;
+    }
 }
 
