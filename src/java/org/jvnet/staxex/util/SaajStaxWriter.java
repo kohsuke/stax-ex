@@ -69,6 +69,8 @@ public class SaajStaxWriter implements XMLStreamWriter {
     static final protected String Header = "Header";
     static final protected String Body = "Body";
     static final protected String xmlns = "xmlns";
+    
+    private boolean isHeaderSeen = false;
 
     public SaajStaxWriter(final SOAPMessage msg, String uri) throws SOAPException {
         soap = msg; 
@@ -103,9 +105,10 @@ public class SaajStaxWriter implements XMLStreamWriter {
             if (envURI.equals(ns)) {
                 if (Envelope.equals(ln)) {
                     currentElement = getEnvelope();
-                    fixPrefix(prefix);                    
+                    fixPrefix(prefix);   
                     return;
                 } else if (Header.equals(ln)) {
+                    isHeaderSeen = true;
                     currentElement = soap.getSOAPHeader();
                     fixPrefix(prefix);                    
                     return;
@@ -124,9 +127,13 @@ public class SaajStaxWriter implements XMLStreamWriter {
     }
     
     private void fixPrefix(final String prfx) throws XMLStreamException {
-        String oldPrfx = currentElement.getPrefix();
+        fixPrefix(prfx, currentElement);
+    }
+    
+    private void fixPrefix(final String prfx, SOAPElement element) throws XMLStreamException {
+        String oldPrfx = element.getPrefix();
         if (prfx != null && !prfx.equals(oldPrfx)) {
-            currentElement.setPrefix(prfx);
+            element.setPrefix(prfx);
         }
     }
 
@@ -151,7 +158,22 @@ public class SaajStaxWriter implements XMLStreamWriter {
     }
 
     @Override
-    public void writeEndDocument() throws XMLStreamException {        
+    public void writeEndDocument() throws XMLStreamException {    
+        try {
+            if (!isHeaderSeen) {
+                SOAPElement header = soap.getSOAPHeader();
+                if (header != null) {
+                    String prefixAtHeader = header.getPrefix();
+                    SOAPElement env = getEnvelope();
+                    header.detachNode();
+                    if (prefixAtHeader != null && !prefixAtHeader.equals(env.getPrefix())) {
+                        env.removeNamespaceDeclaration(prefixAtHeader);
+                    }
+                }
+            }
+        } catch (SOAPException e) {
+            throw new XMLStreamException(e);
+        }           
     }
 
     @Override
