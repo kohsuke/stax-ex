@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2013 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013-2014 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -41,7 +41,6 @@
 package org.jvnet.staxex;
 
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPException;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
@@ -61,7 +60,6 @@ public interface StAxSOAPBody {
         /**
          * Retrieve payload qname without materializing its contents
          * @return
-         * @throws SOAPException
          */
        public QName getPayloadQName();   
        
@@ -73,7 +71,7 @@ public interface StAxSOAPBody {
         * Retrieve payload attribute value without materializing its contents
         * @param localName
         * @return
-        * @throws SOAPException
+        * @throws XMLStreamException
         */
        public String getPayloadAttributeValue(String localName) throws XMLStreamException;   
 
@@ -81,16 +79,16 @@ public interface StAxSOAPBody {
         * Retrieve payload attribute value without materializing its contents
         * @param qName
         * @return
-        * @throws SOAPException
+        * @throws XMLStreamException
         */
        public String getPayloadAttributeValue(QName qName) throws XMLStreamException;
        
-       public void materialize() throws SOAPException;
+       public void materialize() throws XMLStreamException;
     }
     
-    public void setPayload(Payload src) throws SOAPException;
+    public void setPayload(Payload src) throws XMLStreamException;
     
-    public Payload getPayload()throws SOAPException;
+    public Payload getPayload()throws XMLStreamException;
     
     public boolean hasStaxPayload();
  }
